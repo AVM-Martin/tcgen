@@ -24,7 +24,7 @@ tcframeConv_version() {
 
 tcframeConv_main() {
   if [ -z "$TCFRAME_CONV_HOME" ]; then
-    echo "tcframeConv: error: env variable TCFRAME_CONV_HOME not set"
+    echo -e "tcframeConv: error: env variable TCFRAME_CONV_HOME not set"
     exit 1
   fi
 
