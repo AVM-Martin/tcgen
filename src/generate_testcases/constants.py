@@ -1,7 +1,6 @@
 import os
 
 
-FILE_NULL = open(os.devnull, "w")
 RUNNER_EXEC = "runner"
 SOLUTION_EXEC = "solution"
 SOLUTION_PATH = "solution.cpp"

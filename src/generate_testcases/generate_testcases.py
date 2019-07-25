@@ -14,14 +14,14 @@ def generate_testcases():
 			constants.SOLUTION_EXEC,
 			constants.SOLUTION_PATH,
 		],
-		stdout=constants.FILE_NULL,
-		stderr=constants.FILE_NULL,
+		stdout=subprocess.DEVNULL,
+		stderr=subprocess.DEVNULL,
 	)
 
 	os.system("tcframe build")
 
 	subprocess.call(
 		[os.path.join(os.getcwd(),constants.RUNNER_EXEC)],
-		stdout=constants.FILE_NULL,
-		stderr=constants.FILE_NULL,
+		stdout=subprocess.DEVNULL,
+		stderr=subprocess.DEVNULL,
 	)
