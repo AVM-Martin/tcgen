@@ -16,7 +16,10 @@ def get_testcase_path(filename):
     [fname,ext] = filename.split('.')
 
     name = fname[:fname.find("_")]
-    num = int(fname[fname.rfind("_")+1:])
+    try:
+        num = int(fname[fname.rfind("_")+1:])
+    except ValueError:
+        num = 1
 
     if is_sample_testcase(filename):
         path += "sample"
@@ -38,7 +41,7 @@ def create_compressed_problem(datas):
         zipfile.ZIP_DEFLATED
     )
 
-    testcase_directory = os.walk("tc/tc")
+    testcase_directory = os.walk(constants.TESTCASE_DIRECTORY)
 
     for roots, _, files in testcase_directory:
         for file in files:

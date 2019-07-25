@@ -5,3 +5,5 @@ FILEPATHS = {
 	"pdf": "problem.pdf",
 	"zip": "problems.zip",
 }
+
+TESTCASE_DIRECTORY = "tc"
