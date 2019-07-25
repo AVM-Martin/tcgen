@@ -1,7 +1,7 @@
 import os
 import zipfile
 
-from compressed_problem.modules import constants
+from compressed_problem import constants
 
 
 def is_sample_testcase(filename):

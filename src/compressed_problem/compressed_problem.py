@@ -1,4 +1,4 @@
-from compressed_problem.modules import (
+from compressed_problem import (
 	compress,
 	config,
 	constants,
