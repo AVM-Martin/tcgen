@@ -1,6 +1,8 @@
 import configparser
 import yaml
 
+from common import helper
+
 
 def get_problem_config(filepath):
 	with open(filepath, "r") as infile:
@@ -11,7 +13,33 @@ def get_problem_config(filepath):
 	except:
 		datas["validator_flags"] = ""
 
-	datas["memory_limit"] = int(datas["memory_limit"]) * 1000 / 1024
+	datas["memory_limit"] = helper.get_memory_limit(datas["memory_limit"])
+
+	return datas
+
+
+def get_manual_problem_config():
+	problem_name    = input("Input Prob Name        : ")
+	time_limit      = input("Input Timelimit (    1): ")
+	memory_limit    = input("Input Memory    (   64): ")
+	validator_flags = input("Input validFlag (exact): ")
+	include_sample  = input("Include sample  (false): ")
+
+	if validator_flags == "exact":
+		validator_flags = "case_sensitive space_change_sensitive"
+
+	if include_sample == "true":
+		include_sample = True
+	else:
+		include_sample = False
+
+	datas = {
+		"problem_name": problem_name,
+		"time_limit": time_limit,
+		"memory_limit": helper.get_memory_limit(memory_limit),
+		"validator_flags": validator_flags,
+		"include_sample": include_sample,
+	}
 
 	return datas
 
