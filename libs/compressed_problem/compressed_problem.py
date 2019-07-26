@@ -1,10 +1,10 @@
+from common import helper
+
 from compressed_problem import (
 	compress,
 	config,
 	constants,
 )
-
-from common import helper
 
 
 def compressed_problem():

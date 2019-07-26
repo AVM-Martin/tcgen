@@ -9,8 +9,7 @@ tcframeConv_printUsage() {
 }
 
 tcframeConv_build() {
-  python3 "$TCFRAME_CONV_HOME/src/script.py"
-  echo -e "tcframeConv: testcases successfully compressed with Kattis Problem Format"
+  python3 "$TCFRAME_CONV_HOME/libs/runner.py"
 }
 
 tcframeConv_create() {
