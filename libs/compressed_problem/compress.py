@@ -5,27 +5,35 @@ from compressed_problem import constants
 
 
 def is_sample_testcase(filename):
-	[name,ext] = filename.split('.')
-	testcase_type = name[name.find("_")+1:]
-
-	return testcase_type.startswith("sample")
+	return filename.find("_sample") != -1
 
 
 def get_testcase_path(filename):
-	path = "data/"
 	[fname,ext] = filename.split('.')
 
-	name = fname[:fname.find("_")]
-	try:
-		num = int(fname[fname.rfind("_")+1:])
-	except ValueError:
-		num = 1
-
 	if is_sample_testcase(filename):
-		path += "sample"
-		name += "_sample"
+		path = constants.KATTIS_FILEPATHS["sample_testcase"]
+
+		try:
+			[name, _, num] = fname.split('_')
+			name += "_sample"
+			num = int(num)
+
+		except ValueError:
+			[name, _] = fname.split("_")
+			name += "_sample"
+			num = 1
+
 	else:
-		path += "secret"
+		path = constants.KATTIS_FILEPATHS["secret_testcase"]
+
+		try:
+			[name, num] = fname.split("_")
+			num = int(num)
+
+		except ValueError:
+			name = fname
+			num = 1
 
 	if ext == "out":
 		ext = "ans"
@@ -53,9 +61,21 @@ def create_compressed_problem(datas):
 
 			zipf.write(testcase_filepath, testcase_zippath)
 
-	zipf.write(constants.FILEPATHS["pdf"], "problem_statement/problem.pdf")
-	zipf.write(constants.FILEPATHS["pdf"], "problem.pdf")
-	zipf.write(constants.FILEPATHS["ini"], "domjudge-problem.ini")
-	zipf.write(constants.FILEPATHS["yml"], "problem.yaml")
+	zipf.write(
+		constants.FILEPATHS["pdf"],
+		constants.KATTIS_FILEPATHS["description"],
+	)
+	zipf.write(
+		constants.FILEPATHS["pdf"],
+		constants.KATTIS_FILEPATHS["domjudge_description"],
+	)
+	zipf.write(
+		constants.FILEPATHS["ini"],
+		constants.KATTIS_FILEPATHS["ini"],
+	)
+	zipf.write(
+		constants.FILEPATHS["yml"],
+		constants.KATTIS_FILEPATHS["yml"],
+	)
 
 	zipf.close()

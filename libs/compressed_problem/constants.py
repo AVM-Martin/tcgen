@@ -3,4 +3,6 @@ from common import constants
 
 FILEPATHS = constants.FILEPATHS
 
+KATTIS_FILEPATHS = constants.KATTIS_FILEPATHS
+
 TESTCASE_DIRECTORY = constants.TESTCASE_DIRECTORY
