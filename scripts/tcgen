@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+
+tcframeConv_printUsage() {
+  echo -e "usage: tcgen <command>"
+  echo -e ""
+  echo -e "Available commands:"
+  echo -e "  build         Compress tcframe file into zip"
+  echo -e "  version       Print tcframe version"
+}
+
+tcframeConv_build() {
+  echo -e "\e[1;96mtcgen\e[0m: problemset generator start!"
+
+  local position=$(pwd)
+
+  if [ $# -eq 0 ]; then
+    local problem_name="$(realpath --relative-to="$(cd .. && pwd)" "$(pwd)")"
+
+    echo -e ""
+    echo -e "\e[1;96mtcgen\e[0m: generate $problem_name"
+
+    python3 "$TCFRAME_CONV_HOME/libs/runner.py"
+  else
+    for path in "$@"; do
+      cd "$position/$path"
+
+      local problem_name="$(realpath --relative-to="$(cd .. && pwd)" "$(pwd)")"
+
+      echo -e ""
+      echo -e "\e[1;96mtcgen\e[0m: generate $problem_name"
+
+      python3 "$TCFRAME_CONV_HOME/libs/runner.py"
+    done
+  fi
+}
+
+tcframeConv_create() {
+  echo -e "\e[1;96mtcgen\e[0m: this command is deprecated"
+}
+
+tcframeConv_version() {
+  echo -e "tcgen 1.1.0"
+  echo -e "Personal usage only"
+}
+
+tcframeConv_main() {
+  if [ -z "$TCFRAME_CONV_HOME" ]; then
+    echo -e "tcframeConv: error: env variable TCFRAME_CONV_HOME not set"
+    exit 1
+  fi
+
+  if [ $# -eq 0 ]; then
+    tcframeConv_printUsage "${@:2}"
+    exit 1
+  fi
+
+  command=$1
+
+  if [ $1 = "build" ]; then
+    tcframeConv_build "${@:2}"
+  elif [ $1 = "create" ]; then
+    tcframeConv_create "${@:2}"
+  elif [ $1 = "version" ]; then
+    tcframeConv_version "${@:2}"
+  else
+    tcframeConv_printUsage "${@:2}"
+    exit 1
+  fi
+}
+
+tcframeConv_main "$@"
