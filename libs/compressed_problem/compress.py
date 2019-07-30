@@ -1,6 +1,8 @@
 import os
 import zipfile
 
+from common import helper
+
 from compressed_problem import constants
 
 
@@ -49,17 +51,14 @@ def create_compressed_problem(datas):
 		zipfile.ZIP_DEFLATED
 	)
 
-	testcase_directory = os.walk(constants.TESTCASE_DIRECTORY)
+	for file in helper.get_file_list(constants.TESTCASE_DIRECTORY):
+		if (is_sample_testcase(file) and not datas["include_sample"]):
+			continue
 
-	for roots, _, files in testcase_directory:
-		for file in files:
-			if (is_sample_testcase(file) and not datas["include_sample"]):
-				continue
+		testcase_filepath = os.path.join(constants.TESTCASE_DIRECTORY, file)
+		testcase_zippath = get_testcase_path(file)
 
-			testcase_filepath = os.path.join(roots, file)
-			testcase_zippath = get_testcase_path(file)
-
-			zipf.write(testcase_filepath, testcase_zippath)
+		zipf.write(testcase_filepath, testcase_zippath)
 
 	zipf.write(
 		constants.FILEPATHS["pdf"],
