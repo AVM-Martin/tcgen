@@ -9,13 +9,13 @@ def is_sample_testcase(filename):
 
 
 def get_testcase_path(filename):
-	[fname,ext] = filename.split('.')
+	[fname,ext] = filename.split(".")
 
 	if is_sample_testcase(filename):
 		path = constants.KATTIS_FILEPATHS["sample_testcase"]
 
 		try:
-			[name, _, num] = fname.split('_')
+			[name, _, num] = fname.split("_")
 			name += "_sample"
 			num = int(num)
 
