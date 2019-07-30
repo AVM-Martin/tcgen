@@ -1,10 +1,11 @@
 import os
+import shutil
 import subprocess
 
 
 def rename_file(source_path, destination_path):
 	try:
-		os.system("mv {0} {1}".format(source_path, destination_path))
+		os.rename(source_path, destination_path)
 		return True
 	except FileNotFoundError:
 		return False
@@ -12,7 +13,7 @@ def rename_file(source_path, destination_path):
 
 def copy_file(source_path, destination_path):
 	try:
-		os.system("cp {0} {1}".format(source_path, destination_path))
+		shutil.copy2(source_path, destination_path)
 		return True
 	except FileNotFoundError:
 		return False
@@ -26,8 +27,25 @@ def delete_file(path):
 		return False
 
 
+def delete_directory(path):
+	try:
+		shutil.rmtree(path)
+		return True
+	except FileNotFoundError:
+		return False
+
+
 def is_exist(path):
 	return os.path.exists(path)
+
+
+def get_file_list(path="."):
+	try:
+		datas = next(os.walk(path))
+
+		return datas[2]
+	except StopIteration:
+		return None
 
 
 def get_memory_limit(size):
@@ -63,4 +81,5 @@ def compile(file, executable, language="cpp"):
 		pass
 
 	elif language == "py":
-		pass
+		copy_file(file, executable)
+		return os.chmod(executable, 0o755)
