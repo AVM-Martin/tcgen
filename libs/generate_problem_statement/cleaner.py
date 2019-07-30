@@ -1,6 +1,6 @@
 from common import helper
 
-from generate_problem_description import constants
+from generate_problem_statement import constants
 
 
 def remove_latex_output():

@@ -1,13 +1,13 @@
 from common import helper
 
-from generate_problem_description import (
+from generate_problem_statement import (
 	cleaner,
 	constants,
 	generator,
 )
 
 
-def generate_problem_description():
+def generate_problem_statement():
 	assert (
 		generator.batchmode_generator() == 0
 	), "Problem description failed to be generated!"
