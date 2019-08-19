@@ -1,0 +1,45 @@
+% Compiled and edited by Brian Bi, modified by AVM
+
+\documentclass[12pt,a4paper]{extarticle}
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+% ====================================================================================================
+% General
+\usepackage[margin=1in]{geometry}
+
+% ====================================================================================================
+% Header and Footer
+\usepackage{fancyhdr}
+\setlength{\headheight}{14mm}
+\setlength{\headsep}{2mm}
+\renewcommand{\footrulewidth}{0.4pt}
+\pagestyle{fancy}
+\fancyhf{}
+
+\input{statement_dependencies/headfoot.tex}
+\fancypagestyle{plain}{
+    \input{statement_dependencies/headfoot.tex}
+}
+
+% ====================================================================================================
+% listing settings
+\usepackage{listings}
+\lstset{
+    basicstyle=\ttfamily\small,
+    columns=fixed,
+    showstringspaces=false,
+    breaklines=true,
+    prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+    frame=single,
+}
+
+% ====================================================================================================
+% Documents
+\begin{document}
+
+\hfill
+\input{description.tex}
+
+\end{document}
