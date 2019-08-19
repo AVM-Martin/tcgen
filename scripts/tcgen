@@ -1,71 +1,63 @@
 #!/usr/bin/env bash
 
-tcframeConv_printUsage() {
+tcgen_printUsage() {
   echo -e "usage: tcgen <command>"
   echo -e ""
-  echo -e "Available commands:"
+  echo -e "\e[1;93mAvailable commands\e[0m"
+  echo -e "  create        Create problem directory inside current directory"
   echo -e "  build         Compress tcframe file into zip"
-  echo -e "  version       Print tcframe version"
+  echo -e "  install       Install python library dependencies"
+  echo -e "  version       Print tcgen version"
 }
 
-tcframeConv_build() {
-  echo -e "\e[1;96mtcgen\e[0m: problemset generator start!"
-
-  local position=$(pwd)
-
-  if [ $# -eq 0 ]; then
-    local problem_name="$(realpath --relative-to="$(cd .. && pwd)" "$(pwd)")"
-
-    echo -e ""
-    echo -e "\e[1;96mtcgen\e[0m: generate $problem_name"
-
-    python3 "$TCFRAME_CONV_HOME/libs/runner.py"
-  else
-    for path in "$@"; do
-      cd "$position/$path"
-
-      local problem_name="$(realpath --relative-to="$(cd .. && pwd)" "$(pwd)")"
-
-      echo -e ""
-      echo -e "\e[1;96mtcgen\e[0m: generate $problem_name"
-
-      python3 "$TCFRAME_CONV_HOME/libs/runner.py"
-    done
+tcgen_create() {
+  if [ $# -le 0 ]; then
+    echo -e "\e[1;96mtcgen\e[0m: \e[1;91merror\e[0m: Problem directory name is required"
+    exit 1
   fi
+
+  cp -r "$TCGEN_HOME/src/problem/" "$PWD/$1"
 }
 
-tcframeConv_create() {
-  echo -e "\e[1;96mtcgen\e[0m: this command is deprecated"
+tcgen_build() {
+  local problem_name="$(realpath --relative-to="$(cd .. && pwd)" "$(pwd)")"
+  echo -e "\e[1;96mtcgen\e[0m: generate $problem_name"
+
+  python3 "$TCGEN_HOME/libs/runner.py"
 }
 
-tcframeConv_version() {
+tcgen_install() {
+  pip install -r "$TCGEN_HOME/libs/requirements.txt"
+}
+
+tcgen_version() {
   echo -e "tcgen 1.1.0"
   echo -e "Personal usage only"
 }
 
-tcframeConv_main() {
-  if [ -z "$TCFRAME_CONV_HOME" ]; then
-    echo -e "tcframeConv: error: env variable TCFRAME_CONV_HOME not set"
+tcgen_main() {
+  if [ -z "$TCGEN_HOME" ]; then
+    echo -e "tcgen: error: env variable TCGEN_HOME not set"
     exit 1
   fi
 
   if [ $# -eq 0 ]; then
-    tcframeConv_printUsage "${@:2}"
+    tcgen_printUsage "${@:2}"
     exit 1
   fi
 
-  command=$1
-
-  if [ $1 = "build" ]; then
-    tcframeConv_build "${@:2}"
-  elif [ $1 = "create" ]; then
-    tcframeConv_create "${@:2}"
-  elif [ $1 = "version" ]; then
-    tcframeConv_version "${@:2}"
+  if [ "$1" = "create" ]; then
+    tcgen_create "${@:2}"
+  elif [ "$1" = "build" ]; then
+    tcgen_build "${@:2}"
+  elif [ "$1" = "install" ]; then
+    tcgen_install "${@:2}"
+  elif [ "$1" = "version" ]; then
+    tcgen_version "${@:2}"
   else
-    tcframeConv_printUsage "${@:2}"
+    tcgen_printUsage "${@:2}"
     exit 1
   fi
 }
 
-tcframeConv_main "$@"
+tcgen_main "$@"

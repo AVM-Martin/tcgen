@@ -1,19 +1,20 @@
-# TcFrame Converter to Kattis Problem Format
+# Tcgen
+## TcFrame Converter to Kattis Problem Format
 
 
 
-## Installation
+### Installation
 
   * Follow the tcframe installation manual and add the following command into ```~/.bashrc```
 
 ```bash
-export TCFRAME_CONV_HOME=path/to/tcframeConverter/folder
-alias tcframeConv=$TCFRAME_CONV_HOME/scripts/tcframeConv
+export TCGEN_HOME=path/to/tcgen/folder
+alias tcgen=$TCGEN_HOME/scripts/tcgen
 ```
 
 
 
-## Log
+### Log
 
 **1.1.0**
 

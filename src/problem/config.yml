@@ -1,0 +1,17 @@
+problem_name     : <complete-problem-name>
+time_limit       : <time-limit-in-second>
+memory_limit     : <memory-limit-in-mb>
+special_run      : default
+validator_flags  :
+  - case_sensitive
+  - space_change_sensitive
+include_sample   : false
+
+problem_author   :
+  - <full-name-1>
+  - <full-name-2>
+  - <etc>
+topics           :
+  - <topics-1>
+  - <topics-2>
+  - <etc>
