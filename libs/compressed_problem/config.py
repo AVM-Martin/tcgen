@@ -70,7 +70,7 @@ def create_ini_file(filepath, datas):
 def create_yml_file(filepath, datas):
 	data = dict(
 		name = datas["problem_name"],
-		validator_flag = datas["validator_flags"],
+		validator_flags = datas["validator_flags"],
 		limits = dict(
 			memory = datas["memory_limit"],
 		),
